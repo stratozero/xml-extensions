@@ -17,10 +17,19 @@ import java.util.concurrent.ConcurrentHashMap;
  * It uses a granular synchronization on every generated XPathExpression, which makes it fits
  * better for cases where there is little parallelism and lots of repeated xpath evaluation
  */
+@SuppressWarnings("unused")
 public class CachedXPath implements XPath {
 	private static final XPathFactory XPF = XPathFactory.newInstance();
-	private final XPath xPath = XPF.newXPath();
+	private final XPath xPath;
 	private final ConcurrentHashMap<String, XPathExpression> xpMap = new ConcurrentHashMap<>();
+
+	public CachedXPath(XPath xp) {
+		xPath = xp;
+	}
+
+	public CachedXPath() {
+		xPath = XPF.newXPath();
+	}
 
 	@Override
 	public void reset() {
