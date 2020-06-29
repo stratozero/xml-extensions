@@ -19,3 +19,9 @@ dependencies {
 group = 'it.zucchetti.tools'
 version = '1.0-SNAPSHOT'
 sourceCompatibility = '1.7'
+
+task copyJarToDest(type: Copy){
+    from jar.outputs.files.singleFile
+    into "C:\\Work\\coordinator_dev\\Coordinator\\Libraries"
+    rename jar.outputs.files.singleFile.name, "cached-xpath.jar"
+}
