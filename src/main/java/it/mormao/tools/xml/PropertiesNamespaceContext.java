@@ -74,13 +74,13 @@ public class PropertiesNamespaceContext implements NamespaceContext {
 
 	@Override
 	public String getNamespaceURI(String prefix) {
-		return GLOBAL_NAMESPACES.getProperty(prefix);
+		return localProp.getProperty(prefix);
 	}
 
 	@Override
 	public String getPrefix(String namespaceURI) {
-		for(Map.Entry<Object, Object> entry : GLOBAL_NAMESPACES.entrySet()){
-			if(entry.getValue().equals(namespaceURI))
+		for (Map.Entry<Object, Object> entry : localProp.entrySet()) {
+			if (entry.getValue().equals(namespaceURI))
 				return entry.getKey().toString();
 		}
 		return null;
@@ -88,22 +88,24 @@ public class PropertiesNamespaceContext implements NamespaceContext {
 
 	@Override
 	public Iterator<String> getPrefixes(String namespaceURI) {
-		return new EnumerationToIterator<>((Enumeration<String>) GLOBAL_NAMESPACES.propertyNames());
+		return new EnumerationToIterator(localProp.propertyNames());
 	}
 
-	private static class EnumerationToIterator<T> implements Iterator<T>{
-		Enumeration<T> enumeration;
-		EnumerationToIterator(Enumeration<T> enumeration){
+	private static class EnumerationToIterator implements Iterator<String> {
+		Enumeration<?> enumeration;
+
+		EnumerationToIterator(Enumeration<?> enumeration) {
 			this.enumeration = enumeration;
 		}
+
 		@Override
 		public boolean hasNext() {
 			return enumeration.hasMoreElements();
 		}
 
 		@Override
-		public T next() {
-			return enumeration.nextElement();
+		public String next() {
+			return String.valueOf(enumeration.nextElement());
 		}
 
 		@Override

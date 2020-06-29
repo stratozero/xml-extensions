@@ -19,6 +19,7 @@ dependencies {
 group = 'it.zucchetti.tools'
 version = '1.0-SNAPSHOT'
 sourceCompatibility = '1.7'
+targetCompatibility = '1.7'
 
 task copyJarToDest(type: Copy){
     from jar.outputs.files.singleFile
