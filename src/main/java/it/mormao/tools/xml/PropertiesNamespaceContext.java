@@ -105,5 +105,10 @@ public class PropertiesNamespaceContext implements NamespaceContext {
 		public T next() {
 			return enumeration.nextElement();
 		}
+
+		@Override
+		public void remove() {
+			throw new IllegalStateException("Cannot remove element from enumeration");
+		}
 	}
 }
