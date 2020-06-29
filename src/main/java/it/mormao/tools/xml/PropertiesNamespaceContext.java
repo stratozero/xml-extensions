@@ -15,7 +15,7 @@ import java.util.Properties;
 
 
 @SuppressWarnings("unused")
-public class SelectiveNamespaceContext implements NamespaceContext {
+public class PropertiesNamespaceContext implements NamespaceContext {
 	private static Path PROP_FILE_PATH = getDefaultPath();
 	private static final Properties GLOBAL_NAMESPACES = new Properties();
 	private static final Object LOCK = new Object();
